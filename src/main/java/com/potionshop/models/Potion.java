@@ -15,6 +15,10 @@ public class Potion extends Entity {
         this.type = _type;
     }
 
+    public Potion() {
+        super();
+    }
+
     public String getDescription() {
         return description;
     }

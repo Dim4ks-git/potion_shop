@@ -10,6 +10,11 @@ public class Entity {
         this.name = _name;
     }
 
+    public Entity() {
+        this.id = "default";
+        this.name = "default";
+    }
+
     public String getId() {
         return id;
     }

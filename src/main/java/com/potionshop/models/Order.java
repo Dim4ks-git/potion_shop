@@ -12,6 +12,13 @@ public class Order extends Entity {
         this.potion = _potion;
     }
 
+    public Order() {
+        super();
+        this.timestamp = "0000-00-00T00:00:00Z";
+        this.customer = null;
+        this.potion = null;
+    }
+
     public String getTimestamp() {
         return timestamp;
     }
