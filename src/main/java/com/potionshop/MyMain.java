@@ -4,6 +4,12 @@ import com.potionshop.tests.*;
 
 import java.util.Scanner;
 
+//--------------------------------------------------
+//
+// CLASS MyMain
+//
+//--------------------------------------------------
+
 public class MyMain {
 
     public static void testCustomer() {

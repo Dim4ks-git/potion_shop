@@ -1,5 +1,11 @@
 package com.potionshop.models;
 
+//--------------------------------------------------
+//
+// CLASS Shop
+//
+//--------------------------------------------------
+
 public class Shop extends Entity {
     private String address;
     private Potion[] stock;

@@ -45,6 +45,14 @@ public class CustomerTest {
         assertNull(customer.getEmail());
     }
 
+    @Test
+    public void testSetAndGetPassword() {
+        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123", null);
+        customer.setPassword("123");
+
+        assertEquals("123", customer.getPassword());
+    }
+
     public void runAll() {
         System.out.println("-".repeat(55));
         System.out.println(" T E S T S");

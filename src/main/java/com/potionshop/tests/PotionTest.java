@@ -22,6 +22,21 @@ public class PotionTest {
         assertEquals("Magic", potion.getType());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testPotionInitializationWithNegativePrice() {
+        new Potion("P123", "Mana Potion", "Restores mana", -10.0, 100, "Magic");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testPotionInitializationWithNegativeStoreQuantity() {
+        new Potion("P123", "Mana Potion", "Restores mana", 25.5, -1, "Magic");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testPotionInitializationWithZeroPrice() {
+        new Potion("P123", "Mana Potion", "Restores mana", 0, 100, "Magic");
+    }
+
     @Test
     public void testPotionDefaultInitialization() {
         Potion potion = new Potion();
@@ -80,6 +95,102 @@ public class PotionTest {
         potion.setType(null);
 
         assertNull(potion.getType());
+    }
+
+
+    @Test
+    public void increaseQuantity_ShouldIncreaseStoreQuantity() {
+        Potion potion = new Potion();
+        int initialQuantity = potion.getStoreQuantity();
+        int increaseAmount = 10;
+
+        int newQuantity = potion.increaseQuantity(increaseAmount);
+
+        assertEquals(initialQuantity + increaseAmount, newQuantity);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void increaseQuantity_ShouldThrowExceptionForNegativeAmount() {
+        Potion potion = new Potion();
+        potion.increaseQuantity(-1);
+    }
+
+
+    @Test(expected = ArithmeticException.class)
+    public void increaseQuantity_ShouldThrowExceptionForOverflow() {
+        Potion potion = new Potion();
+        potion.increaseQuantity(Integer.MAX_VALUE - 10); // Set close to max
+        potion.increaseQuantity(11); // Exceeds Integer.MAX_VALUE
+    }
+
+    @Test(expected = ArithmeticException.class)
+    public void increaseQuantity_ShouldHandleBoundaryValues() {
+        Potion potion = new Potion();
+
+        // Setting to a value just below the maximum
+        potion.setStoreQuantity(Integer.MAX_VALUE - 1);
+
+        // Should succeed
+        int result = potion.increaseQuantity(1);
+
+        assertEquals(Integer.MAX_VALUE, result);
+
+        potion.increaseQuantity(1);
+
+    }
+
+    @Test
+    public void increaseQuantity_ShouldWorkForZeroAmount() {
+        Potion potion = new Potion();
+        int initialQuantity = potion.getStoreQuantity();
+
+        int newQuantity = potion.increaseQuantity(0);
+
+        assertEquals(initialQuantity, newQuantity);
+    }
+
+    @Test
+    public void decreaseQuantity_ShouldDecreaseStoreQuantity() {
+        Potion potion = new Potion();
+        potion.setStoreQuantity(50); // Initialize storeQuantity to 50
+
+        int newQuantity = potion.decreaseQuantity(10);
+
+        assertEquals(40, newQuantity);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void decreaseQuantity_ShouldThrowExceptionForNegativeAmount() {
+        Potion potion = new Potion();
+        potion.setStoreQuantity(20); // Initialize storeQuantity to 20
+        potion.decreaseQuantity(-1); // Should throw IllegalArgumentException
+    }
+
+    @Test(expected = ArithmeticException.class)
+    public void decreaseQuantity_ShouldThrowExceptionForResultingNegativeQuantity() {
+        Potion potion = new Potion();
+        potion.setStoreQuantity(10); // Initialize storeQuantity to 10
+        potion.decreaseQuantity(20); // Should throw ArithmeticException
+    }
+
+    @Test
+    public void decreaseQuantity_ShouldWorkForExactQuantity() {
+        Potion potion = new Potion();
+        potion.setStoreQuantity(25); // Initialize storeQuantity to 25
+
+        int newQuantity = potion.decreaseQuantity(25);
+
+        assertEquals(0, newQuantity); // storeQuantity should be exactly 0
+    }
+
+    @Test
+    public void decreaseQuantity_ShouldWorkForZeroAmount() {
+        Potion potion = new Potion();
+        potion.setStoreQuantity(15); // Initialize storeQuantity to 15
+
+        int newQuantity = potion.decreaseQuantity(0);
+
+        assertEquals(15, newQuantity); // storeQuantity should remain unchanged
     }
 
     public void runAll() {

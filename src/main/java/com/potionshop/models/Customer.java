@@ -1,5 +1,12 @@
 package com.potionshop.models;
 
+//--------------------------------------------------
+//
+// CLASS Customer
+//
+//--------------------------------------------------
+
+
 public class Customer extends Entity {
     private String email;
     private String password;

@@ -1,5 +1,12 @@
 package com.potionshop.models;
 
+//--------------------------------------------------
+//
+// CLASS Order
+//
+//--------------------------------------------------
+
+
 public class Order extends Entity {
     private String timestamp;
     private Customer customer;
