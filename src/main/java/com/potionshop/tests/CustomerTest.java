@@ -2,27 +2,31 @@ package com.potionshop.tests;
 
 import com.potionshop.models.Customer;
 import com.potionshop.models.Order;
+import com.potionshop.models.Potion;
+import com.potionshop.models.Shop;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class CustomerTest {
     @Test
     public void testCustomerInitialization() {
-        Order[] orders = {new Order(), new Order()};
-        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123", orders);
+        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123");
 
         assertEquals("john@example.com", customer.getEmail());
         assertEquals("password123", customer.getPassword());
-        assertArrayEquals(orders, customer.getOrdersHistory());
+        assertTrue(customer.getOrdersHistory().isEmpty());
     }
 
     @Test
     public void testSetAndGetEmail() {
-        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123", null);
+        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123");
         customer.setEmail("newemail@example.com");
 
         assertEquals("newemail@example.com", customer.getEmail());
@@ -30,16 +34,24 @@ public class CustomerTest {
 
     @Test
     public void testSetAndGetOrdersHistory() {
-        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123", null);
-        Order[] newOrders = {new Order()};
-        customer.setOrdersHistory(newOrders);
+        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123");
+        Order order1 = new Order("O1", "Order1", "2024-12-15T10:00:00", customer, null);
+        Order order2 = new Order("O2", "Order2", "2024-12-16T10:00:00", customer, null);
 
-        assertArrayEquals(newOrders, customer.getOrdersHistory());
+        List<Order> orders = new ArrayList<>();
+        orders.add(order1);
+        orders.add(order2);
+
+        customer.setOrdersHistory(orders);
+
+        assertEquals(2, customer.getOrdersHistory().size());
+        assertEquals(order1, customer.getOrdersHistory().get(0));
+        assertEquals(order2, customer.getOrdersHistory().get(1));
     }
 
     @Test
     public void testSetEmailToNull() {
-        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123", null);
+        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123");
         customer.setEmail(null);
 
         assertNull(customer.getEmail());
@@ -47,10 +59,51 @@ public class CustomerTest {
 
     @Test
     public void testSetAndGetPassword() {
-        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123", null);
+        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123");
         customer.setPassword("123");
 
         assertEquals("123", customer.getPassword());
+    }
+
+    @Test
+    public void testBuyPotion() {
+        Potion potion1 = new Potion("P1", "Healing Potion", "Restores health", 50.0, 10, "Health");
+        Potion potion2 = new Potion("P2", "Mana Potion", "Restores mana", 30.0, 5, "Mana");
+
+        Shop shop = new Shop("S1", "Potion Shop", "123 Magic Street", new Potion[]{potion1, potion2});
+        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123");
+
+        // Buy a potion
+        customer.buyPotion(potion1, shop);
+
+        // Verify potion stock decreased
+        assertEquals(9, potion1.getStoreQuantity());
+
+        // Verify order is added to history
+        List<Order> ordersHistory = customer.getOrdersHistory();
+        assertEquals(1, ordersHistory.size());
+
+        Order order = ordersHistory.getFirst();
+        assertEquals(potion1, order.getPotion());
+        assertEquals(customer, order.getCustomer());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBuyPotionOutOfStock() {
+        Potion potion = new Potion("P1", "Healing Potion", "Restores health", 50.0, 0, "Health");
+        Shop shop = new Shop("S1", "Potion Shop", "123 Magic Street", new Potion[]{potion});
+        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123");
+
+        customer.buyPotion(potion, shop);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBuyPotionNotInShop() {
+        Potion potion = new Potion("P1", "Healing Potion", "Restores health", 50.0, 10, "Health");
+        Shop shop = new Shop("S1", "Potion Shop", "123 Magic Street", new Potion[]{});
+        Customer customer = new Customer("1", "John Doe", "john@example.com", "password123");
+
+        customer.buyPotion(potion, shop);
     }
 
     public void runAll() {

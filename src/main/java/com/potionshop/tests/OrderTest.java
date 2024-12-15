@@ -14,7 +14,7 @@ public class OrderTest {
 
     @Test
     public void testOrderInitializationWithParameters() {
-        Customer customer = new Customer("C123", "John Doe", "john@example.com", "password123", null);
+        Customer customer = new Customer("C123", "John Doe", "john@example.com", "password123");
         Potion potion = new Potion("P123", "Mana Potion", "Restores mana", 25.5, 100, "Magic");
         Order order = new Order("O123", "Order 1", "2024-12-09T10:00:00Z", customer, potion);
 
@@ -46,7 +46,7 @@ public class OrderTest {
 
     @Test
     public void testSetAndGetCustomer() {
-        Customer customer = new Customer("C124", "Jane Doe", "jane@example.com", "password456", null);
+        Customer customer = new Customer("C124", "Jane Doe", "jane@example.com", "password456");
         Order order = new Order();
         order.setCustomer(customer);
 
