@@ -103,6 +103,94 @@ public class ShopTest {
         assertEquals(0, shop.getStock().length);
     }
 
+    @Test
+    public void testFindPotionById_Found() {
+        // Setup
+        Potion potion1 = new Potion("P001", "Health Potion", "Restores health", 10.0, 50, "Healing");
+        Potion potion2 = new Potion("P002", "Mana Potion", "Restores mana", 15.0, 30, "Magic");
+        Shop shop = new Shop("S001", "Potion Shop", "123 Magic St", new Potion[]{potion1, potion2});
+
+        // Execute
+        Potion result = shop.findPotion("P001");
+
+        // Verify
+        assertNotNull(result);
+        assertEquals("P001", result.getId());
+        assertEquals("Health Potion", result.getName());
+    }
+
+    @Test
+    public void testFindPotionById_NotFound() {
+        // Setup
+        Potion potion1 = new Potion("P001", "Health Potion", "Restores health", 10.0, 50, "Healing");
+        Shop shop = new Shop("S001", "Potion Shop", "123 Magic St", new Potion[]{potion1});
+
+        // Execute
+        Potion result = shop.findPotion("P999");
+
+        // Verify
+        assertNull(result);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindPotionById_NullId() {
+        // Setup
+        Shop shop = new Shop("S001", "Potion Shop", "123 Magic St", new Potion[0]);
+
+        // Execute
+        shop.findPotion(null);
+    }
+
+    @Test
+    public void testFindPotionByIdAndQuantity_Found() {
+        // Setup
+        Potion potion1 = new Potion("P001", "Health Potion", "Restores health", 10.0, 50, "Healing");
+        Potion potion2 = new Potion("P002", "Mana Potion", "Restores mana", 15.0, 30, "Magic");
+        Shop shop = new Shop("S001", "Potion Shop", "123 Magic St", new Potion[]{potion1, potion2});
+
+        // Execute
+        Potion result = shop.findPotion("P002", 30);
+
+        // Verify
+        assertNotNull(result);
+        assertEquals("P002", result.getId());
+        assertEquals(30, result.getStoreQuantity());
+    }
+
+    @Test
+    public void testFindPotionByIdAndQuantity_NotFound() {
+        // Setup
+        Potion potion1 = new Potion("P001", "Health Potion", "Restores health", 10.0, 50, "Healing");
+        Shop shop = new Shop("S001", "Potion Shop", "123 Magic St", new Potion[]{potion1});
+
+        // Execute
+        Potion result = shop.findPotion("P001", 10);
+
+        // Verify
+        assertNull(result);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindPotionByIdAndQuantity_NullId() {
+        // Setup
+        Shop shop = new Shop("S001", "Potion Shop", "123 Magic St", new Potion[0]);
+
+        // Execute
+        shop.findPotion(null, 10);
+    }
+
+    @Test
+    public void testFindPotionByIdAndQuantity_EmptyStock() {
+        // Setup
+        Shop shop = new Shop("S001", "Potion Shop", "123 Magic St", new Potion[0]);
+
+        // Execute
+        Potion result = shop.findPotion("P001", 10);
+
+        // Verify
+        assertNull(result);
+    }
+
     public void runAll() {
         System.out.println("-".repeat(55));
         System.out.println(" T E S T S");

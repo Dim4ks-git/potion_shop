@@ -99,6 +99,51 @@ public class Shop extends Entity {
     }
 
     //---------------------------------------
+    // Business Methods
+    //---------------------------------------
+
+    /**
+     * Finds a potion in the stock by its id.
+     *
+     * @param potionId The ID of the potion to search for.
+     * @return The Potion object if found, or null if not found.
+     */
+    public Potion findPotion(String potionId) {
+        if (potionId == null) {
+            throw new IllegalArgumentException("Potion ID cannot be null");
+        }
+        for (Potion potion : stock) {
+            if (potion != null) {
+                if (potion.getId().equalsIgnoreCase(potionId)) {
+                    return potion;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds a potion in the stock by its id and specified quantity.
+     *
+     * @param potionId The ID of the potion to search for.
+     * @param quantity The quantity to search for.
+     * @return The Potion object if found, or null if not found.
+     */
+    public Potion findPotion(String potionId, int quantity) {
+        if (potionId == null) {
+            throw new IllegalArgumentException("Potion ID cannot be null");
+        }
+        for (Potion potion : stock) {
+            if (potion != null) {
+                if (potion.getId().equalsIgnoreCase(potionId) && potion.getStoreQuantity() == quantity) {
+                    return potion;
+                }
+            }
+        }
+        return null;
+    }
+
+    //---------------------------------------
     // toString
     //---------------------------------------
 
