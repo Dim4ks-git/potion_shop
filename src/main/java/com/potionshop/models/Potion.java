@@ -7,6 +7,7 @@ package com.potionshop.models;
 //--------------------------------------------------
 // CLASS Potion
 //--------------------------------------------------
+
 /**
  * Represents a potion in the Potion Shop system.<br>
  * Each potion has a description, price, available quantity, and type.

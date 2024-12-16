@@ -4,6 +4,8 @@
 
 package com.potionshop.models;
 
+import com.potionshop.PotionShopBusinessMethods;
+
 import java.util.Arrays;
 
 //--------------------------------------------------
@@ -13,7 +15,7 @@ import java.util.Arrays;
  * Represents a shop in the Potion Shop system.<br>
  * Each shop has a unique id, an address, and an inventory of potions.
  */
-public class Shop extends Entity {
+public class Shop extends Entity implements PotionShopBusinessMethods {
 
     //---------------------------------------
     // Fields
