@@ -1,5 +1,6 @@
 package com.potionshop;
 
+import com.potionshop.models.Entity;
 import com.potionshop.tests.*;
 
 import java.util.Scanner;
@@ -11,6 +12,10 @@ import java.util.Scanner;
 //--------------------------------------------------
 
 public class MyMain {
+
+    public static <T extends Entity> void displayClass(T entityInstance) {
+        System.out.println(entityInstance.toString());
+    }
 
     public static void testCustomer() {
         CustomerTest customerTest = new CustomerTest();
@@ -53,7 +58,8 @@ public class MyMain {
         System.out.println("3. Test Order.java");
         System.out.println("4. Test Potion.java");
         System.out.println("5. Test Shop.java");
-        System.out.println("6. Exit");
+        System.out.println("6. Display all classes");
+        System.out.println("7. Exit");
         System.out.println("-".repeat(40));
 
         System.out.println("    Enter your choice: ");
@@ -76,6 +82,9 @@ public class MyMain {
                 testShop();
                 break;
             case 6:
+
+                break;
+            case 7:
                 System.out.println("Exit");
                 break;
             default:
