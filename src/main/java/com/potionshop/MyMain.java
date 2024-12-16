@@ -42,6 +42,11 @@ public class MyMain {
         entityTest.runAll();
     }
 
+    private static void integrationTests() {
+        IntegrationTests integrationTests = new IntegrationTests();
+        integrationTests.runAll();
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -58,7 +63,7 @@ public class MyMain {
         System.out.println("3. Test Order.java");
         System.out.println("4. Test Potion.java");
         System.out.println("5. Test Shop.java");
-        System.out.println("6. Display all classes");
+        System.out.println("6. Integration tests");
         System.out.println("7. Exit");
         System.out.println("-".repeat(40));
 
@@ -82,7 +87,7 @@ public class MyMain {
                 testShop();
                 break;
             case 6:
-
+                integrationTests();
                 break;
             case 7:
                 System.out.println("Exit");
