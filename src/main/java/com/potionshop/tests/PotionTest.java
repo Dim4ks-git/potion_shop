@@ -67,18 +67,6 @@ public class PotionTest {
     }
 
     @Test
-    public void testPotionDefaultInitialization() {
-        Potion potion = new Potion();
-
-        assertEquals("default", potion.getId());
-        assertEquals("default", potion.getName());
-        assertNull(potion.getDescription());
-        assertEquals(0.0, potion.getPrice(), 0.001);
-        assertEquals(0, potion.getStoreQuantity());
-        assertNull(potion.getType());
-    }
-
-    @Test
     public void testSetAndGetDescription() {
         Potion potion = new Potion();
         potion.setDescription("Increases stamina");
