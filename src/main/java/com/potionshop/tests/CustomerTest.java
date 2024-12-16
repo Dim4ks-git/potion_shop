@@ -15,6 +15,37 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class CustomerTest {
+
+    @Test
+    public void testDefaultConstructor() {
+        // Create a Customer using the default constructor
+        Customer customer = new Customer();
+
+        // Verify default values
+        assertEquals("default@default.com", customer.getEmail());
+        assertEquals("default", customer.getPassword());
+        assertTrue(customer.getOrdersHistory().isEmpty());
+    }
+
+    @Test
+    public void testCopyConstructor() {
+        // Create an original Customer
+        Customer original = new Customer("1", "John Doe", "john@example.com", "password123");
+
+        // Use the copy constructor
+        Customer copy = new Customer(original);
+
+        // Verify the copied values
+        assertEquals(original.getId(), copy.getId());
+        assertEquals(original.getName(), copy.getName());
+        assertEquals(original.getEmail(), copy.getEmail());
+        assertEquals(original.getPassword(), copy.getPassword());
+
+        // Verify that the orders history is also copied but is a different object
+        assertNotSame(original.getOrdersHistory(), copy.getOrdersHistory());
+        assertTrue(copy.getOrdersHistory().isEmpty());
+    }
+
     @Test
     public void testCustomerInitialization() {
         Customer customer = new Customer("1", "John Doe", "john@example.com", "password123");

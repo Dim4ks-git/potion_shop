@@ -13,6 +13,36 @@ import static org.junit.Assert.*;
 public class OrderTest {
 
     @Test
+    public void testDefaultConstructor() {
+        // Create an Order using the default constructor
+        Order order = new Order();
+
+        // Verify default values
+        assertEquals("0000-00-00T00:00:00Z", order.getTimestamp());
+        assertNull(order.getCustomer());
+        assertNull(order.getPotion());
+    }
+
+    @Test
+    public void testCopyConstructor() {
+        // Create original objects
+        Customer customer = new Customer("C123", "John Doe", "john@example.com", "password123");
+        Potion potion = new Potion("P123", "Healing Potion", "Restores health", 25.0, 10, "Health");
+        Order original = new Order("O123", "Order 1", "2024-12-09T10:00:00Z", customer, potion);
+
+        // Use the copy constructor
+        Order copy = new Order(original);
+
+        // Verify the copied values
+        assertEquals(original.getId(), copy.getId());
+        assertEquals(original.getName(), copy.getName());
+        assertEquals(original.getTimestamp(), copy.getTimestamp());
+        assertEquals(original.getCustomer(), copy.getCustomer());
+        assertEquals(original.getPotion(), copy.getPotion());
+    }
+
+
+    @Test
     public void testOrderInitializationWithParameters() {
         Customer customer = new Customer("C123", "John Doe", "john@example.com", "password123");
         Potion potion = new Potion("P123", "Mana Potion", "Restores mana", 25.5, 100, "Magic");

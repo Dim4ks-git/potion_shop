@@ -11,6 +11,29 @@ import static org.junit.Assert.*;
 public class EntityTest {
 
     @Test
+    public void testDefaultConstructor() {
+        // Create an Entity using the default constructor
+        Entity entity = new Entity();
+
+        // Verify default values
+        assertEquals("default", entity.getId());
+        assertEquals("default", entity.getName());
+    }
+
+    @Test
+    public void testCopyConstructor() {
+        // Create an original Entity
+        Entity original = new Entity("E123", "Test Entity");
+
+        // Use the copy constructor
+        Entity copy = new Entity(original);
+
+        // Verify the copied values
+        assertEquals(original.getId(), copy.getId());
+        assertEquals(original.getName(), copy.getName());
+    }
+
+    @Test
     public void testEntityInitializationWithParameters() {
         Entity entity = new Entity("123", "Potion");
 

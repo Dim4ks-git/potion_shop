@@ -11,6 +11,35 @@ import static org.junit.Assert.*;
 public class PotionTest {
 
     @Test
+    public void testDefaultConstructor() {
+        // Create a Potion using the default constructor
+        Potion potion = new Potion();
+
+        // Verify default values
+        assertEquals("default", potion.getDescription());
+        assertEquals(0.0, potion.getPrice(), 0.001);
+        assertEquals(0, potion.getStoreQuantity());
+        assertEquals("default", potion.getType());
+    }
+
+    @Test
+    public void testCopyConstructor() {
+        // Create an original Potion
+        Potion original = new Potion("P123", "Mana Potion", "Restores mana", 25.5, 100, "Magic");
+
+        // Use the copy constructor
+        Potion copy = new Potion(original);
+
+        // Verify the copied values
+        assertEquals(original.getId(), copy.getId());
+        assertEquals(original.getName(), copy.getName());
+        assertEquals(original.getDescription(), copy.getDescription());
+        assertEquals(original.getPrice(), copy.getPrice(), 0.001);
+        assertEquals(original.getStoreQuantity(), copy.getStoreQuantity());
+        assertEquals(original.getType(), copy.getType());
+    }
+
+    @Test
     public void testPotionInitializationWithParameters() {
         Potion potion = new Potion("P123", "Mana Potion", "Restores mana", 25.5, 100, "Magic");
 

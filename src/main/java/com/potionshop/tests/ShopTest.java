@@ -12,6 +12,39 @@ import static org.junit.Assert.*;
 public class ShopTest {
 
     @Test
+    public void testDefaultConstructor() {
+        // Create a Shop using the default constructor
+        Shop shop = new Shop();
+
+        // Verify default values
+        assertEquals("default address", shop.getAddress());
+        assertNotNull(shop.getStock());
+        assertEquals(0, shop.getStock().length);
+    }
+
+    @Test
+    public void testCopyConstructor() {
+        // Create original objects
+        Potion[] stock = {
+                new Potion("P123", "Mana Potion", "Restores mana", 25.5, 100, "Magic"),
+                new Potion("P124", "Healing Potion", "Restores health", 15.0, 50, "Magic")
+        };
+        Shop original = new Shop("S123", "Potion Shop", "123 Wizard Lane", stock);
+
+        // Use the copy constructor
+        Shop copy = new Shop(original);
+
+        // Verify the copied values
+        assertEquals(original.getId(), copy.getId());
+        assertEquals(original.getName(), copy.getName());
+        assertEquals(original.getAddress(), copy.getAddress());
+        assertArrayEquals(original.getStock(), copy.getStock());
+
+        // Ensure the stock array is a new instance
+        assertNotSame(original.getStock(), copy.getStock());
+    }
+
+    @Test
     public void testShopInitializationWithParameters() {
         Potion[] stock = {
                 new Potion("P123", "Mana Potion", "Restores mana", 25.5, 100, "Magic"),
