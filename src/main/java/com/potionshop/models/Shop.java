@@ -109,9 +109,6 @@ public class Shop extends Entity {
      * @return The Potion object if found, or null if not found.
      */
     public Potion findPotion(String potionId) {
-        if (potionId == null) {
-            throw new IllegalArgumentException("Potion ID cannot be null");
-        }
         for (Potion potion : stock) {
             if (potion != null) {
                 if (potion.getId().equalsIgnoreCase(potionId)) {
@@ -130,9 +127,6 @@ public class Shop extends Entity {
      * @return The Potion object if found, or null if not found.
      */
     public Potion findPotion(String potionId, int quantity) {
-        if (potionId == null) {
-            throw new IllegalArgumentException("Potion ID cannot be null");
-        }
         for (Potion potion : stock) {
             if (potion != null) {
                 if (potion.getId().equalsIgnoreCase(potionId) && potion.getStoreQuantity() == quantity) {

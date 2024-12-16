@@ -132,13 +132,13 @@ public class ShopTest {
         assertNull(result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFindPotionById_NullId() {
         // Setup
         Shop shop = new Shop("S001", "Potion Shop", "123 Magic St", new Potion[0]);
 
         // Execute
-        shop.findPotion(null);
+        assertNull(shop.findPotion(null));
     }
 
     @Test
@@ -170,13 +170,13 @@ public class ShopTest {
         assertNull(result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFindPotionByIdAndQuantity_NullId() {
         // Setup
         Shop shop = new Shop("S001", "Potion Shop", "123 Magic St", new Potion[0]);
 
         // Execute
-        shop.findPotion(null, 10);
+        assertNull(shop.findPotion(null, 10));
     }
 
     @Test
